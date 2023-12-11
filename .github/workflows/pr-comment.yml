@@ -56,11 +56,16 @@ jobs:
   write-comment:
     runs-on: ubuntu-22.04
     needs: [define-comment]
-    if: needs.define-comment.outputs.any_changed == 'true'
     permissions:
       issues: write
       pull-requests: write
     steps:
+      - run: |
+          echo 123
+          echo ${{ needs.define-comment.outputs.any_changed }}
+          echo ${{ needs.define-comment.outputs.comment }}
+          echo 123
+
       - name: Agregar comentario con entradas faltantes
         uses: thollander/actions-comment-pull-request@v2
         with:
